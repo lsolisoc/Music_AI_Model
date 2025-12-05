@@ -10,7 +10,7 @@ MODEL_PATH = os.path.join(MODEL_DIR, "chopin_lstm.pt")
 
 SEQ_LEN = 48       # length of input sequences
 BATCH_SIZE = 64
-EPOCHS = 10       # keep small so it finishes
+EPOCHS = 10       
 LR = 5e-4
 
 DEVICE = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
@@ -18,7 +18,7 @@ DEVICE = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 
 class ChopinDataset(Dataset):
     def __init__(self, pitch_sequence, seq_len):
-        # Filter out rests (-1) OPTIONAL: you can keep rests if you want
+        # Filter out rests (-1) for vocabulary building
         self.seq = pitch_sequence.astype(int)
 
         # Map pitches to a compact index space [0..num_tokens-1]

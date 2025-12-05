@@ -23,6 +23,7 @@ def count_extended_fingers(hand_landmarks, image_width, image_height):
 def get_hand_center(hand_landmarks):
     xs = [lm.x for lm in hand_landmarks.landmark]
     ys = [lm.y for lm in hand_landmarks.landmark]
+    
     # normalized 0–1
     return sum(xs) / len(xs), sum(ys) / len(ys)
 
@@ -46,11 +47,11 @@ def get_hand_openness(hand_landmarks):
 
 
 def normalize(value, min_val, max_val):
-    # Clamp then scale to 0–1
+    # Setting the scale from 0–1
     value = max(min_val, min(max_val, value))
     return (value - min_val) / (max_val - min_val) if max_val > min_val else 0.0
 
-# Store previous positions for simple velocity calculation
+# Store previous positions to calculate velocity
 prev_centers = {}
 
 def compute_velocity(label, cx, cy):
@@ -64,7 +65,7 @@ def compute_velocity(label, cx, cy):
     dy = cy - prev_y
     prev_centers[label] = (cx, cy)
 
-    # Euclidean distance per frame as a proxy for speed
+    # Euclidean distance per frame to measure speed of movement
     return (dx**2 + dy**2) ** 0.5
 
 
@@ -107,7 +108,7 @@ def main():
                         mp_hands.HAND_CONNECTIONS
                     )
 
-                    # Left hand → finger count (for mood)
+                    # Left hand → finger count (for mood and creativity)
                     if label == "Left":
                         fingers = count_extended_fingers(
                             hand_landmarks, image_width, image_height
@@ -123,14 +124,14 @@ def main():
                         )
                         print(f"LEFT HAND - fingers extended: {fingers}")
 
-                    # Right hand → X/Y center + openness (for pitch/rhythm/intensity)
+                    # Right hand: X/Y center + openness (for pitch/rhythm/intensity)
                     elif label == "Right":
                         cx, cy = get_hand_center(hand_landmarks)   # normalized 0–1
                         raw_open = get_hand_openness(hand_landmarks)
                         open_norm = normalize(raw_open, 0.20, 0.50)
 
                         vel = compute_velocity(label, cx, cy)
-                        vel_norm = normalize(vel, 0.0, 0.05)  # tune 0.05 depending on how fast you move
+                        vel_norm = normalize(vel, 0.0, 0.05)  # tune 0.05 depending speed of movement
 
                         cv2.putText(
                             frame,

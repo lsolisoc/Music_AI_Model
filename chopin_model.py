@@ -94,7 +94,7 @@ while cap.isOpened():
     if not ret:
         break
 
-    # Mirror camera so movements look natural
+    # Mirror camera to map movements
     frame = cv2.flip(frame, 1)
 
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -116,7 +116,7 @@ while cap.isOpened():
             fingers = count_fingers(hand_landmarks, handedness)
             openness = hand_openness(hand_landmarks)
 
-            # Use RIGHT physical hand for music control
+            # RIGHT hand for music control
             if hand_type == "Right":
                 right_x = cx          # 0 (left) → 1 (right) : speed
                 right_y = cy          # 0 (top) → 1 (bottom): pitch
@@ -143,7 +143,7 @@ while cap.isOpened():
     # === MUSIC GENERATION ===
     now = time.time()
 
-    # Right X controls rhythm speed: mapped so right→faster smoothly, floor at 0.15
+    # Right X controls rhythm speed, floor at 0.15
     speed_factor = max(0.15, 1.0 - right_x)
 
     if now - last_note_time > NOTE_INTERVAL * speed_factor:
@@ -154,7 +154,7 @@ while cap.isOpened():
 
             # Left hand controls temperature (creativity)
             if left_fingers == 0:
-                temp = 0.65   # closer to training data to reduce randomness
+                temp = 0.65   # closer to training data 
             elif left_fingers == 1:
                 temp = 0.75
             elif left_fingers == 2:
@@ -171,13 +171,13 @@ while cap.isOpened():
             if next_pitch != -1:
                 # Clamp model pitch output mid-keyboard range
                 base_pitch = int(next_pitch)
-                base_pitch = max(48, min(84, base_pitch))  # C3–C6
+                base_pitch = max(48, min(84, base_pitch))  # C3–C6, safe range
 
-                # Y controls pitch register shift: tighter range ±5 semitones
+                # Y controls pitch register shift: tighter range  around 5 semitones
                 pitch_shift = int((0.5 - right_y) * 10)  # -5 to +5 semitones
                 final_pitch = max(43, min(88, base_pitch + pitch_shift))  # Slightly wider safe range
 
-                # Openness determines chord layers: 1, 2, or 5 notes for richer chords
+                # Openness determines chord layers
                 if right_openness < 0.3:
                     layer_count = 1
                 elif right_openness < 0.6:

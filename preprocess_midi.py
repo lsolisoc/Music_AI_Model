@@ -2,14 +2,14 @@ import os
 import numpy as np
 import pretty_midi
 
-# Folder with your 3 Chopin MIDIs
+# Folder with Chopin piano pieces
 MIDI_DIR = "Midi"
 OUT_PATH = "data/chopin_sequences.npz"
 
 # Quantization: seconds per time step
 TIME_STEP = 0.125  # ~16th note at ~120 bpm
 
-# Reasonable piano pitch range
+# Determining pitch range for piano
 MIN_PITCH = 21   # A0
 MAX_PITCH = 108  # C8
 
@@ -17,7 +17,7 @@ def midi_to_pitch_grid(midi_path, time_step):
     """Convert MIDI file into a 1D sequence of pitches (monophonic)."""
     pm = pretty_midi.PrettyMIDI(midi_path)
 
-    # Merge all instruments into one note list
+    # Merging all instruments into one note list
     all_notes = []
     for inst in pm.instruments:
         all_notes.extend(inst.notes)
@@ -63,7 +63,7 @@ def build_dataset_from_folder(midi_dir, time_step):
     if not all_seqs:
         raise RuntimeError("No valid sequences created from MIDI files.")
 
-    # Concatenate sequences with a small rest gap between pieces
+    # Concatenated sequences with a small rest gap between pieces
     gap = np.full(16, -1, dtype=int)  # 16 time steps of rest
     full_seq = all_seqs[0]
     for seq in all_seqs[1:]:
