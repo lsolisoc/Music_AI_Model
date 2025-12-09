@@ -1,9 +1,9 @@
 # Music_AI_Model
-Overview: Real-time Music generation controlled by hand movements. Model was trained on public-domain Chopin piano pieces. 
+Real-time Music generation controlled by hand movements. Model was trained on public-domain Chopin piano pieces. 
 
 
-## The project
-Details: MediaPipe  was used for hand tracking, PyTorch LSTM trained on Chopin MIDI dataset. Left hand controls creativity level, while right hand controls pitch/speed/ harmonic layers.
+## Project details
+MediaPipe  was used for hand tracking, PyTorch LSTM trained on Chopin MIDI dataset. Left hand controls creativity level, while right hand controls pitch/speed/ harmonic layers.
 
 ## Controls 
 - Left hand fingers: style (0=classic, 4=creative)
