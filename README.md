@@ -3,17 +3,17 @@ Overview: Real-time Music generation controlled by hand movements. Model was tra
 
 
 ## The project
-- Details: MediaPipe  was used for hand tracking, PyTorch LSTM trained on Chopin MIDI dataset. Left hand controls creativity level, while right hand controls pitch/speed/ harmonic layers.
+Details: MediaPipe  was used for hand tracking, PyTorch LSTM trained on Chopin MIDI dataset. Left hand controls creativity level, while right hand controls pitch/speed/ harmonic layers.
 
 ## Controls 
-- Left hand fingers: style (0=classic, 4=creative)
-- Right hand X: speed (left=slow, right=fast)  
-- Right hand Y: pitch (top=high, bottom=low)
-- Right hand openness: layers (closed=single notes, open=chords)
+Left hand fingers: style (0=classic, 4=creative)
+Right hand X: speed (left=slow, right=fast)  
+Right hand Y: pitch (top=high, bottom=low)
+Right hand openness: layers (closed=single notes, open=chords)
 
 
 ## Flow 
-- Live camera > Hand gesture detection > Music generated as MIDI output
+Live camera > Hand gesture detection > Music generated as MIDI output
 
 
 ## Architecture: 
@@ -25,13 +25,13 @@ main.py (tracking) < MediaPipe > chopin_model.py (LSTM inference) > Mido MIDI ou
 
 
 ## Open-source Libraries 
-- OpenCV: used for camera and video capture (https://opencv.org/license/)
-- MediaPipe Hands: real-time hand detection (https://github.com/google-ai-edge/mediapipe)
-- PyTorch: used for the LSTM neural network (https://github.com/pytorch/tutorials/blob/main/LICENSE)
-- PrettyMIDI: MIDI processing for training (https://github.com/craffel/pretty-midi)
-- Mido: generating MIDI outputs (https://github.com/mido/mido/)
-- NumPy: creating arrays (https://github.com/numpy/numpy)
-- *no external models were used or imported
+OpenCV: used for camera and video capture (https://opencv.org/license/)
+MediaPipe Hands: real-time hand detection (https://github.com/google-ai-edge/mediapipe)
+PyTorch: used for the LSTM neural network (https://github.com/pytorch/tutorials/blob/main/LICENSE)
+PrettyMIDI: MIDI processing for training (https://github.com/craffel/pretty-midi)
+Mido: generating MIDI outputs (https://github.com/mido/mido/)
+NumPy: creating arrays (https://github.com/numpy/numpy)
+*no external models were used or imported
 
 
 ## Contributions  
@@ -42,10 +42,10 @@ main.py (tracking) < MediaPipe > chopin_model.py (LSTM inference) > Mido MIDI ou
 
 
 ## Public domain Chopin dataset 
-- piano-midi.de/chopin_d.htm
-- kunstderfuge.com/chopin.htm​
-- midiworld.com/chopin.htm
-- Categories: Ballades, Etudes, Impromptus, Nocturnes, Preludes, Waltzes
+piano-midi.de/chopin_d.htm
+kunstderfuge.com/chopin.htm​
+midiworld.com/chopin.htm
+Categories: Ballades, Etudes, Impromptus, Nocturnes, Preludes, Waltzes
 
 
 ## How to run 
