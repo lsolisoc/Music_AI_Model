@@ -6,6 +6,9 @@ The project
 - Details: MediaPipe  was used for hand tracking, PyTorch LSTM trained on Chopin MIDI dataset. Left hand controls creativity level, while right hand controls pitch/speed/ harmonic layers.
 
 
+
+
+
 Controls 
 - Left hand fingers: style (0=classic, 4=creative)
 - Right hand X: speed (left=slow, right=fast)  
@@ -49,7 +52,7 @@ Public domain Chopin dataset
 - Categories: Ballades, Etudes, Impromptus, Nocturnes, Preludes, Waltzes
 
 
-How to run - 
+How to run 
 1. create env and install  dependencies:
 conda create -n music_ai python=3.9 -y
 conda activate music_ai
